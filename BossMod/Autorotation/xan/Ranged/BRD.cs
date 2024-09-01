@@ -1,4 +1,4 @@
-﻿using BossMod.BRD;
+using BossMod.BRD;
 using FFXIVClientStructs.FFXIV.Client.Game.Gauge;
 
 namespace BossMod.Autorotation.xan;
@@ -102,8 +102,15 @@ public sealed class BRD(RotationModuleManager manager, Actor player) : Attackxan
 
         var ijDelay = EffectApplicationDelay(AID.IronJaws);
 
-        if (CanFitGCD(TargetDotLeft.Min - ijDelay) && !CanFitGCD(TargetDotLeft.Min - ijDelay, 1))
+        if (BattleVoice > 0 && BattleVoice <= 3 && BattleVoice >= 1)
+        {
             PushGCD(AID.IronJaws, BestDotTarget);
+        }
+
+        if (CanFitGCD(TargetDotLeft.Min - ijDelay) && !CanFitGCD(TargetDotLeft.Min - ijDelay, 1))
+        {
+            PushGCD(AID.IronJaws, BestDotTarget);
+        }
 
         if (!CanFitGCD(TargetDotLeft.Wind, 1))
             PushGCD(AID.Windbite, BestDotTarget);
@@ -117,8 +124,10 @@ public sealed class BRD(RotationModuleManager manager, Actor player) : Attackxan
         if (ShouldApexArrow(strategy))
             PushGCD(AID.ApexArrow, BestLineTarget);
 
-        if (RadiantEncore > GCD)
+        if (RagingStrikes > 0 && RadiantEncore > GCD)
+        {
             PushGCD(AID.RadiantEncore, BestCircleTarget);
+        }
 
         if (HawksEye > GCD || Barrage > GCD)
         {

@@ -102,7 +102,7 @@ public sealed class BRD(RotationModuleManager manager, Actor player) : Attackxan
 
         var ijDelay = EffectApplicationDelay(AID.IronJaws);
 
-        if (BattleVoice > 0 && BattleVoice <= 3 && BattleVoice >= 1)
+        if (BattleVoice > 0 && BattleVoice <= 3 && BattleVoice >= 0.8)
         {
             PushGCD(AID.IronJaws, BestDotTarget);
         }

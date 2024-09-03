@@ -21,18 +21,16 @@ public enum AID : uint
     Stonecarver3 = 36696, // Helper->self, 11.1s cast, range 40 width 20 rect
     Stonecarver4 = 36697, // Helper->self, 13.6s cast, range 40 width 20 rect
 
-    SkullCrushVisual1 = 36674, // Boss->self, no cast, single-target
-    SkullCrushVisual2 = 36675, // Boss->self, 5.0+2.0s cast, single-target
-
     Impact1 = 36677, // Helper->self, 7.0s cast, range 60 circle, knockback 18, away from origin
     Impact2 = 36667, // Helper->self, 9.0s cast, range 60 circle, knockback 18, away from origin
     Impact3 = 36707, // Helper->self, 8.0s cast, range 60 circle, knockback 20, away from origin
 
-    SkullcrushVisual = 36675, // Boss->self, 5.0+2.0s cast, single-target
+    SkullCrushVisual1 = 36674, // Boss->self, no cast, single-target
+    SkullcrushVisual2 = 36675, // Boss->self, 5.0+2.0s cast, single-target
+    SkullcrushVisual3 = 38664, // Boss->self, no cast, single-target
     Skullcrush1 = 36676, // Helper->self, 7.0s cast, range 10 circle
     Skullcrush2 = 36666, // Helper->self, 9.0s cast, range 10 circle
 
-    UnknownAbility2 = 38664, // Boss->self, no cast, single-target
     Charcore = 36708, // Boss->self, no cast, single-target
     DestructiveHeat = 36709, // Helper->players, 7.0s cast, range 6 circle
 
@@ -222,7 +220,7 @@ class DestructiveHeat(BossModule module) : Components.SpreadFromCastTargets(modu
         {
             var knockback = _kb1.Sources(slot, actor).Any() || _kb1.Data.Item2 > WorldState.CurrentTime || _kb2.Sources(slot, actor).Any() || _kb2.Data.Item2 > WorldState.CurrentTime || _kb3.Sources(slot, actor).Any() || _kb2.Data.Item2 > WorldState.CurrentTime;
             if (_kb1.Sources(slot, actor).Any())
-                origin = _kb1.Data.Item1;
+                origin = actor.Role is Role.Melee or Role.Ranged ? new(100, -400) : _kb1.Data.Item1;
             else if (_kb2.Sources(slot, actor).Any())
                 origin = _kb2.Data.Item1;
             else if (_kb3.Sources(slot, actor).Any())
